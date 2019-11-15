@@ -51,7 +51,7 @@
     </bean>
 
     <!--3、配置securityManager用到的databaseRealm和sessionManager-->
-    <bean id="databaseRealm" class="com.myshiro.realm.DatabaseRealm"></bean>
+    <bean id="databaseRealm" class="com.myshiro.realm.DatabaseRealm"/>
 
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
     <!--全局会话超时时间（毫秒），默认30分钟,超时后删除-->
@@ -71,16 +71,17 @@
     <bean id="sessionDao" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"></bean>
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
     <!--会话验证调度器，每30分钟执行一次，设定会话超时及保存-->
-    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+    <bean name="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
         <property name="interval" value="1800000"/>
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
     <!--本质是一个cookie,会话cookie模板（domain,expireTime,path等信息），关闭浏览器立即失效-->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid" />
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="-1"/>
     </bean>
