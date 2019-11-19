@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.myshiro.mapper.PermissionMapper">
+	    <select id="listPermissionsByUserName"  parameterType="string" resultType="Permission">
+			select p.id, p.name from shiro_user u
+				left join shiro_user_role ru
+					on u.id = ru.uid left 
+				join shiro_role r
+					on r.id = ru.rid 
+				left join shiro_role_permission rp
+					on r.id = rp.rid 
+				left join shiro_permission p
+					on p.id = rp.pid 
+			where u.name =#{0}
+	    </select>
+	</mapper>
+
