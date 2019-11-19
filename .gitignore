@@ -1,0 +1,13 @@
+# maven #
+/target
+gitignore
+
+# IDEA #
+.idea/
+*.iml
+
+# Eclipse #
+.settings/
+.metadata/
+.classpath
+.project
